@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}BnB Artisti - Prenota Camera{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ room[1] }}</h2>
+                    <p class="card-text">{{ room[2] }}</p>
+                    <div class="room-details">
+                        <p><strong>Prezzo per notte:</strong> €{{ "%.2f"|format(room[3]) }}</p>
+                        <p><strong>Capacità massima:</strong> {{ room[4] }} ospiti</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Prenota il tuo soggiorno</h3>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="guest_name" class="form-label">Nome completo</label>
+                            <input type="text" class="form-control" id="guest_name" name="guest_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="guest_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="guest_email" name="guest_email" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="check_in" class="form-label">Check-in</label>
+                                <input type="date" class="form-control" id="check_in" name="check_in" required
+                                       min="{{ today }}" onchange="updateTotal()">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="check_out" class="form-label">Check-out</label>
+                                <input type="date" class="form-control" id="check_out" name="check_out" required
+                                       min="{{ today }}" onchange="updateTotal()">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="alert alert-info" id="price-summary">
+                                <h5>Riepilogo Prezzo</h5>
+                                <div><strong>Prezzo per notte:</strong> €{{ "%.2f"|format(room[3]) }}</div>
+                                <div><strong>Numero notti:</strong> <span id="num-nights">0</span></div>
+                                <div class="mt-2"><strong>Totale:</strong> €<span id="total-price">0.00</span></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Conferma Prenotazione</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateTotal() {
+    const checkIn = document.getElementById('check_in').value;
+    const checkOut = document.getElementById('check_out').value;
+    const pricePerNight = {{ room[3] }};
+    
+    if (checkIn && checkOut) {
+        const start = new Date(checkIn);
+        const end = new Date(checkOut);
+        const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+        
+        if (nights > 0) {
+            document.getElementById('num-nights').textContent = nights;
+            document.getElementById('total-price').textContent = (nights * pricePerNight).toFixed(2);
+        }
+    }
+}
+
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('check_in').min = today;
+
+document.getElementById('check_in').addEventListener('change', function() {
+    document.getElementById('check_out').min = this.value;
+    if (document.getElementById('check_out').value && 
+        document.getElementById('check_out').value < this.value) {
+        document.getElementById('check_out').value = this.value;
+    }
+    updateTotal();
+});
+</script>
+{% endblock %}

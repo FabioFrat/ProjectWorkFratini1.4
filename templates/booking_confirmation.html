@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}BnB Artisti - Conferma Prenotazione{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        <h2 class="mt-3">Prenotazione Confermata!</h2>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>Il tuo codice di prenotazione è:</strong>
+                        <div class="confirmation-code text-center my-3">
+                            <h3>{{ booking['confirmation_code'] }}</h3>
+                        </div>
+                        <small>Conserva questo codice per future referenze</small>
+                    </div>
+
+                    <div class="booking-details mt-4">
+                        <h4>Dettagli della Prenotazione</h4>
+                        <table class="table">
+                            <tr>
+                                <th>Camera:</th>
+                                <td>{{ booking['room_name'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ospite:</th>
+                                <td>{{ booking['guest_name'] }}</td>
+                            </tr>
+                            <tr>
+                                <th>Check-in:</th>
+                                <td>{{ booking['check_in'].strftime('%d/%m/%Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Check-out:</th>
+                                <td>{{ booking['check_out'].strftime('%d/%m/%Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Notti:</th>
+                                <td>{{ (booking['check_out'] - booking['check_in']).days }}</td>
+                            </tr>
+                            <tr>
+                                <th>Prezzo Totale:</th>
+                                <td>€{{ "%.2f"|format(booking['total_price']) }}</td>
+                            </tr>
+                            <tr>
+                                <th>Stato:</th>
+                                <td>
+                                    <span class="badge {% if booking['status'] == 'confirmed' %}bg-success{% elif booking['status'] == 'pending' %}bg-warning{% else %}bg-danger{% endif %}">
+                                        {{ booking['status'] }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button onclick="window.print()" class="btn btn-secondary me-2">
+                            <i class="fas fa-print"></i> Stampa
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">
+                            <i class="fas fa-home"></i> Torna alla Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

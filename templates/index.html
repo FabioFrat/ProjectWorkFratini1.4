@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}BnB Artisti - Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row py-5">
+        <div class="col-md-8 mx-auto text-center">
+            <h1 class="display-4">Benvenuti al BnB Artisti</h1>
+            <p class="lead">Un'esperienza unica nelle nostre camere ispirate ai grandi maestri dell'arte italiana</p>
+            <a href="{{ url_for('rooms') }}" class="btn btn-primary btn-lg">Scopri le Nostre Camere</a>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Le Nostre Camere</h2>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card room-card">
+                <img src="{{ url_for('static', filename='img/rooms/leonardo.jpg') }}" class="card-img-top" alt="Camera Leonardo">
+                <div class="card-body">
+                    <h5 class="card-title">Camera Leonardo da Vinci</h5>
+                    <p class="card-text">Elegante camera con vista sul giardino, ispirata al genio del Rinascimento</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card room-card">
+                <img src="{{ url_for('static', filename='img/rooms/michelangelo.jpg') }}" class="card-img-top" alt="Camera Michelangelo">
+                <div class="card-body">
+                    <h5 class="card-title">Suite Michelangelo</h5>
+                    <p class="card-text">Spaziosa suite con affreschi e decorazioni rinascimentali</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card room-card">
+                <img src="{{ url_for('static', filename='img/rooms/raffaello.jpg') }}" class="card-img-top" alt="Camera Raffaello">
+                <div class="card-body">
+                    <h5 class="card-title">Camera Raffaello</h5>
+                    <p class="card-text">Camera romantica con balcone privato e splendida vista sulla strad</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 py-5 bg-light">
+        <div class="col-12 text-center">
+            <h2 class="mb-4">Perché Scegliere BnB Artisti</h2>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="mb-4">
+                <h3>Location Unica</h3>
+                <p>Nel cuore della città, vicino ai principali punti di interesse</p>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="mb-4">
+                <h3>Design Artistico</h3>
+                <p>Ogni camera è un omaggio ai grandi maestri dell'arte italiana</p>
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <div class="mb-4">
+                <h3>Comfort Moderno</h3>
+                <p>Servizi di alta qualità in un ambiente storico</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

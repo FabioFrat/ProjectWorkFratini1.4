@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}BnB Artisti - Gestisci Prenotazione{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Gestisci la tua Prenotazione</h3>
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('find_booking') }}">
+                        <div class="mb-3">
+                            <label for="confirmation_code" class="form-label">Codice di Prenotazione</label>
+                            <input type="text" class="form-control" id="confirmation_code" 
+                                   name="confirmation_code" required placeholder="Es. BNB-ABC123">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Cerca Prenotazione</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
