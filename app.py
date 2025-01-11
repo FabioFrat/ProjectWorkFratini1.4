@@ -224,7 +224,7 @@ def generate_confirmation_code():
     """Genera un codice di conferma univoco"""
     characters = string.ascii_uppercase + string.digits
     while True:
-        code = 'BNB-' + ''.join(random.choices(characters, k=6))
+        code = 'B&amp;B-' + ''.join(random.choices(characters, k=6))
         cur = mysql.connection.cursor()
         cur.execute("SELECT id FROM bookings WHERE confirmation_code = %s", (code,))
         if not cur.fetchone():
