@@ -1,6 +1,6 @@
 class Config:
     DEBUG = True
-    SECRET_KEY = 'your-secret-key-here'
+    SECRET_KEY = ''
     
     MYSQL_HOST = 'localhost'
     MYSQL_USER = 'root'
